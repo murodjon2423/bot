@@ -7,12 +7,14 @@ from aiogram.types import BotCommand
 from config import BOT_TOKEN
 from handlers.category_handlers import category_router
 from handlers.cmd_handlers import cmd_router
+from handlers.mro import product_router
+
 
 
 async def main():
     bot = Bot(token=BOT_TOKEN)
     dp = Dispatcher()
-    dp.include_routers(cmd_router, category_router)
+    dp.include_routers(cmd_router, category_router,product_router)
     await dp.start_polling(bot)
 
 

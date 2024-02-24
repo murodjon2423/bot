@@ -6,6 +6,10 @@ class Database:
         self.conn = sqlite3.connect(db_name)
         self.cursor = self.conn.cursor()
 
+    def get_product(self):
+        products = self.cursor.execute("SELECT id,nomi FROM product;")
+        return products.fetchall()
+
     # WORK WITH CATEGORIES
     def get_categories(self):       # get all categories
         categories = self.cursor.execute(
