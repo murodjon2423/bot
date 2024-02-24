@@ -7,7 +7,7 @@ class Database:
         self.cursor = self.conn.cursor()
 
     def get_product(self):
-        products = self.cursor.execute("SELECT id,nomi FROM product;")
+        products = self.cursor.execute("SELECT * FROM product;")
         return products.fetchall()
 
     # WORK WITH CATEGORIES

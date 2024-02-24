@@ -1,23 +1,17 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-
-from config import DB_NAME
 from utils.database import Database
-
+from aiogram.types import Message
+from config import DB_NAME
 
 db = Database(DB_NAME)
 
-
-
-def make_product_kb():
+async def make_product_messages():
     products = db.get_product()
-    rows = []
+    messages = []
     for product in products:
-        # Assuming the first column contains the text for the button and the second column contains the callback data
-        if len(product) >= 2:  # Check if the tuple has at least 2 elements
-            text = str(product[0])  # Convert to string
-            callback_data = product[1]  # Adjust the index according to your database structure
-            rows.append([InlineKeyboardButton(text=text, callback_data=str(callback_data))])
-    inl_kb = InlineKeyboardMarkup(inline_keyboard=rows)
-    return inl_kb
-
-
+        if len(product) >= 2:
+            text = str(product[0])
+            callback_data = product[1]
+            message = f"Product: {text}\nCallback Data: {callback_data}"
+            messages.append(message)
+    return messages

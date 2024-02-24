@@ -4,7 +4,7 @@ from aiogram.types import Message, CallbackQuery
 from aiogram.filters import CommandStart, Command
 
 from config import DB_NAME
-from keyboards.admin_inline_keyboard2 import make_product_kb
+from keyboards.admin_inline_keyboard2 import make_product_messages
 from states.admin_states import CategoryStates
 from utils.database import Database
 
@@ -16,10 +16,10 @@ db = Database(DB_NAME)
 
 @product_router.message(Command('product'))
 async def category_list_handler(message: Message):
-    await message.answer(
-        text="All product:",
-        reply_markup=make_product_kb()
-    )
+    messages = await make_product_messages()
+    for text in messages:
+        await message.answer(text)
+    
 
 
 """@category_router.message(Command('add_category'))
